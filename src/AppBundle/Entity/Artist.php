@@ -3,26 +3,40 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ */
 class Artist
 {
     /**
      * @var int
+     *
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $name;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $creationYear;
 
     /**
      * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Album", mappedBy="artist")
      */
     private $albums;
 

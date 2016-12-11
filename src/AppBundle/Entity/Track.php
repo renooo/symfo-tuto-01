@@ -2,36 +2,54 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ */
 class Track
 {
     /**
      * @var int
+     *
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $number;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $duration;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="text")
      */
     private $lyrics;
 
     /**
      * @var Album
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Album", inversedBy="tracks")
      */
     private $album;
 

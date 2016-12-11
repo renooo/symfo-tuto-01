@@ -2,39 +2,62 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ */
 class Album
 {
     /**
      * @var int
+     *
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="date")
      */
     private $releaseDate;
 
     /**
      * @var Artist
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Artist", inversedBy="albums")
      */
     private $artist;
 
     /**
      * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Track", mappedBy="album")
      */
     private $tracks;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="collection")
+     */
+    private $collecters;
 
     function __construct()
     {
         $this->tracks = new ArrayCollection();
+        $this->collecters = new ArrayCollection();
     }
 
     /**

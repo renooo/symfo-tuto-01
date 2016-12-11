@@ -12,7 +12,29 @@ class ArtistController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('artist/index.html.twig');
+        $artists = [
+            [
+                'id' => 123,
+                'name' => 'Pink Floyd',
+                'creation_year' => 1965,
+            ],
+            [
+                'id' => 456,
+                'name' => 'Led Zeppelin',
+                'creation_year' => 1968,
+            ],
+            [
+                'id' => 789,
+                'name' => 'Black Sabbath',
+                'creation_year' => 1968,
+            ],
+            [
+                'id' => 1111,
+                'name' => 'Magma',
+            ]
+        ];
+
+        return $this->render('artist/index.html.twig', ['artists' => $artists]);
     }
 
     /**
@@ -28,7 +50,13 @@ class ArtistController extends Controller
      */
     public function showAction()
     {
-        return $this->render('artist/show.html.twig');
+        $artist = [
+            'id' => 123,
+            'name' => 'pink floyd',
+            'creation_year' => 1965,
+        ];
+
+        return $this->render('artist/show.html.twig', ['artist' => $artist]);
     }
 
     /**

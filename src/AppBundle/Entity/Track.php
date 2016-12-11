@@ -33,16 +33,16 @@ class Track
     private $number;
 
     /**
-     * @var int
+     * @var \DateTime
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="time")
      */
     private $duration;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $lyrics;
 
@@ -100,7 +100,7 @@ class Track
     }
 
     /**
-     * @return int
+     * @return \DateTime
      */
     public function getDuration()
     {
@@ -108,7 +108,7 @@ class Track
     }
 
     /**
-     * @param int $duration
+     * @param \DateTime $duration
      * @return Track
      */
     public function setDuration($duration)

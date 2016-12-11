@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Album;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -10,9 +11,9 @@ class AlbumController extends Controller
     /**
      * @Route(path="/album/{id}", requirements={"id": "[0-9]+"})
      */
-    public function showAction()
+    public function showAction(Album $album)
     {
-        return $this->render('album/show.html.twig');
+        return $this->render('album/show.html.twig', ['album' => $album]);
     }
 
     /**

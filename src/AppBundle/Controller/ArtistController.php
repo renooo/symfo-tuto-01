@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Artist;
 use Doctrine\ORM\EntityRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,10 +65,8 @@ class ArtistController extends Controller
     /**
      * @Route(path="/artist/{id}", requirements={"id": "[0-9]+"})
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, Artist $artist)
     {
-        $artist = $this->getDoctrine()->getRepository('AppBundle:Artist')->find($id);
-
         $artistPageViews = $request->getSession()->get('artistPageViews', 0) + 1;
         $request->getSession()->set('artistPageViews', $artistPageViews);
         $this->get('logger')->info('Artist page view', ['artist' => $artist]);

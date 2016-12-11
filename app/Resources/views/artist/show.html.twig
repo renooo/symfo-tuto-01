@@ -15,4 +15,18 @@
         <a class="btn btn-primary" href="{{ path('app_artist_index') }}">Retour aux artistes</a>
     </div>
 </div>
+<h2>Albums ({{ artist.albums.count }}) :</h2>
+{% for album in artist.albums %}
+<div class="row">
+    <div class="col-md-4">
+        <img src="http://lorempixel.com/200/200/sports/{{ loop.index }}">
+    </div>
+    <div class="col-md-7">
+        <h2>{{ album.title }}</h2>
+    </div>
+    <div class="col-md-1">
+        <a href="{{ path('app_album_show', {'id': album.id}) }}" class="btn btn-primary">Voir</a>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

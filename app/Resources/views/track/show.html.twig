@@ -1,1 +1,16 @@
-TRACK SHOW
+{% extends "base.html.twig" %}
+{% block title %}{{ track.album.artist.name | title }} - {{ track.title | title }} - {{ parent() }}{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ track.album.artist.name | title }} - {{ track.title | title }}</h1>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary" href="{{ path('app_album_show', {'id': track.album.id}) }}">Retour à l'album</a>
+    </div>
+<div class="row">
+    <div class="col-md-12">
+        {{ track.lyrics | nl2br }}
+    </div>
+</div>
+{% endblock %}

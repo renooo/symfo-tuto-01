@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Track;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -10,9 +11,9 @@ class TrackController extends Controller
     /**
      * @Route(path="/track/{id}")
      */
-    public function showAction()
+    public function showAction(Track $track)
     {
-        return $this->render('track/show.html.twig');
+        return $this->render('track/show.html.twig', ['track' => $track]);
     }
 
     /**

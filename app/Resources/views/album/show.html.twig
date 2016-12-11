@@ -1,1 +1,43 @@
-ALBUM SHOW
+{% extends "base.html.twig" %}
+{% block title %}{{ album.artist.name | title }} - {{ album.title }} - {{ parent() }}{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ album.artist.name | title }} - {{ album.title }}</h1>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary" href="{{ path('app_artist_show', {'id': album.artist.id}) }}">Retour à l'artiste</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <img src="http://lorempixel.com/200/200/sports">
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>N°</th>
+                <th>Titre</th>
+                <th>Durée</th>
+                <th>Paroles</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for track in album.tracks %}
+                <tr>
+                    <th scope="row">{{ track.number }}</th>
+                    <td>{{ track.title | title }}</td>
+                    <td>{{ track.duration | date('m:s') }}</td>
+                    <td>
+                        {% if track.lyrics is not empty %}
+                            <a class="btn btn-primary" href="{{ path('app_track_show', {'id': track.id}) }}">Voir</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

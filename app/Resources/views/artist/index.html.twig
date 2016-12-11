@@ -2,6 +2,12 @@
 {% block title %}Tous les artistes - {{ parent() }}{% endblock %}
 {% block body %}
 <h1>Tous les artistes ({{ artists | length }})</h1>
+{% if artistPageViews > 0 %}
+<small>Pages artistes vues au cours de la session : <strong>{{ artistPageViews }}</strong></small>
+{% endif %}
+
+<h4>Numéros magiques :</h4>
+<pre>{{  magicNumbers }}</pre>
 
 <hr>
 {% for artist in artists %}

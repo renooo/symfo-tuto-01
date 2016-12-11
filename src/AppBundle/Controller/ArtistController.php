@@ -4,13 +4,31 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArtistController extends Controller
 {
+    private function getMagicNumbers()
+    {
+        $cache = $this->get('cache.app');
+        $cachedMagicNumbers = $cache->getItem('magicNumbers');
+
+        if (!$cachedMagicNumbers->isHit()) {
+            sleep(5);
+            $magicNumbers = [rand(1, 42), rand(1, 42), rand(1, 42)];
+            $cachedMagicNumbers->set($magicNumbers);
+            $cache->save($cachedMagicNumbers);
+        } else {
+            $magicNumbers = $cachedMagicNumbers->get();
+        }
+
+        return $magicNumbers;
+    }
+
     /**
      * @Route(path="/artists")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $artists = [
             [
@@ -34,7 +52,13 @@ class ArtistController extends Controller
             ]
         ];
 
-        return $this->render('artist/index.html.twig', ['artists' => $artists]);
+        $artistPageViews = $request->getSession()->get('artistPageViews', 0);
+
+        return $this->render('artist/index.html.twig', [
+            'artists' => $artists,
+            'artistPageViews' => $artistPageViews,
+            'magicNumbers' => implode(',', $this->getMagicNumbers()),
+        ]);
     }
 
     /**
@@ -48,13 +72,17 @@ class ArtistController extends Controller
     /**
      * @Route(path="/artist/{id}", requirements={"id": "[0-9]+"})
      */
-    public function showAction()
+    public function showAction(Request $request)
     {
         $artist = [
             'id' => 123,
             'name' => 'pink floyd',
             'creation_year' => 1965,
         ];
+
+        $artistPageViews = $request->getSession()->get('artistPageViews', 0) + 1;
+        $request->getSession()->set('artistPageViews', $artistPageViews);
+        $this->get('logger')->info('Artist page view', ['artist' => $artist]);
 
         return $this->render('artist/show.html.twig', ['artist' => $artist]);
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,16 +32,27 @@ class ArtistController extends Controller
      */
     public function indexAction(Request $request, $decade = null)
     {
+        /** @var EntityRepository $repository */
         $repository = $this->getDoctrine()->getRepository('AppBundle:Artist');
+        
+        if (null === $decade) {
+            $artists = $repository->findBy([], ['name' => 'ASC']);
+        } else {
+            $decade *= 10;
 
-        $artists = $repository->findBy([], ['name' => 'ASC']);
-
+            $qb = $repository->createQueryBuilder('a');
+            $qb->select('a')
+                ->where($qb->expr()->between('a.creationYear', $decade, ($decade + 10)));
+            $artists = $qb->getQuery()->execute();
+        }
+    
         $artistPageViews = $request->getSession()->get('artistPageViews', 0);
 
         return $this->render('artist/index.html.twig', [
             'artists' => $artists,
             'artistPageViews' => $artistPageViews,
             'magicNumbers' => implode(',', $this->getMagicNumbers()),
+            'decade' => $decade,
         ]);
     }
 

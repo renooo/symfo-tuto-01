@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %}Tous les artistes - {{ parent() }}{% endblock %}
 {% block body %}
-<h1>Tous les artistes ({{ artists | length }})</h1>
+<h1>Tous les artistes {% if decade is not empty %}des années {{ decade }}{% endif %} ({{ artists | length }})</h1>
 {% if artistPageViews > 0 %}
 <small>Pages artistes vues au cours de la session : <strong>{{ artistPageViews }}</strong></small>
 {% endif %}

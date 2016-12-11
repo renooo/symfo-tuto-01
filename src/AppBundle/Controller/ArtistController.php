@@ -36,14 +36,10 @@ class ArtistController extends Controller
         $repository = $this->getDoctrine()->getRepository('AppBundle:Artist');
         
         if (null === $decade) {
-            $artists = $repository->findBy([], ['name' => 'ASC']);
+            $artists = $repository->findAll();
         } else {
             $decade *= 10;
-
-            $qb = $repository->createQueryBuilder('a');
-            $qb->select('a')
-                ->where($qb->expr()->between('a.creationYear', $decade, ($decade + 10)));
-            $artists = $qb->getQuery()->execute();
+            $artists = $repository->findByDecade($decade);
         }
     
         $artistPageViews = $request->getSession()->get('artistPageViews', 0);

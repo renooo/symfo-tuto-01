@@ -20,6 +20,7 @@
         {% if artist.creationYear is defined %}
         <small>Créé en <strong>{{ artist.creationYear }}</strong></small>
         {% endif %}
+        <small>- Nombre d'albums en base : <strong>{{ artist.albums.count }}</strong></small>
     </div>
     <div class="col-md-1">
         <a class="btn btn-primary" href="{{ path('app_artist_show', {id: artist.id}) }}">Voir</a>

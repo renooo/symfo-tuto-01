@@ -27,30 +27,13 @@ class ArtistController extends Controller
 
     /**
      * @Route(path="/artists")
+     * @Route(path="/artists/{decade}0s", requirements={"decade": "[0-9]{3,3}"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $decade = null)
     {
-        $artists = [
-            [
-                'id' => 123,
-                'name' => 'Pink Floyd',
-                'creationYear' => 1965,
-            ],
-            [
-                'id' => 456,
-                'name' => 'Led Zeppelin',
-                'creationYear' => 1968,
-            ],
-            [
-                'id' => 789,
-                'name' => 'Black Sabbath',
-                'creationYear' => 1968,
-            ],
-            [
-                'id' => 1111,
-                'name' => 'Magma',
-            ]
-        ];
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Artist');
+
+        $artists = $repository->findBy([], ['name' => 'ASC']);
 
         $artistPageViews = $request->getSession()->get('artistPageViews', 0);
 
@@ -72,13 +55,9 @@ class ArtistController extends Controller
     /**
      * @Route(path="/artist/{id}", requirements={"id": "[0-9]+"})
      */
-    public function showAction(Request $request)
+    public function showAction(Request $request, $id)
     {
-        $artist = [
-            'id' => 123,
-            'name' => 'pink floyd',
-            'creationYear' => 1965,
-        ];
+        $artist = $this->getDoctrine()->getRepository('AppBundle:Artist')->find($id);
 
         $artistPageViews = $request->getSession()->get('artistPageViews', 0) + 1;
         $request->getSession()->set('artistPageViews', $artistPageViews);

@@ -7,8 +7,8 @@
     </div>
     <div class="col-md-7">
         <h1>{{ artist.name | title | strrev }}</h1>
-        {% if artist.creation_year is not empty %}
-        <small>Groupe formé en <strong>{{ artist.creation_year }}</strong></small>
+        {% if artist.creationYear is not empty %}
+        <small>Groupe formé en <strong>{{ artist.creationYear }}</strong></small>
         {% endif %}
     </div>
     <div class="col-md-2">

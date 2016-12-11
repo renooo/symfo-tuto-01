@@ -34,17 +34,17 @@ class ArtistController extends Controller
             [
                 'id' => 123,
                 'name' => 'Pink Floyd',
-                'creation_year' => 1965,
+                'creationYear' => 1965,
             ],
             [
                 'id' => 456,
                 'name' => 'Led Zeppelin',
-                'creation_year' => 1968,
+                'creationYear' => 1968,
             ],
             [
                 'id' => 789,
                 'name' => 'Black Sabbath',
-                'creation_year' => 1968,
+                'creationYear' => 1968,
             ],
             [
                 'id' => 1111,
@@ -77,7 +77,7 @@ class ArtistController extends Controller
         $artist = [
             'id' => 123,
             'name' => 'pink floyd',
-            'creation_year' => 1965,
+            'creationYear' => 1965,
         ];
 
         $artistPageViews = $request->getSession()->get('artistPageViews', 0) + 1;

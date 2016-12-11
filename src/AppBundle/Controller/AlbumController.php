@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AlbumController extends Controller
 {
     /**
-     * @Route(path="/album/{id}")
+     * @Route(path="/album/{id}", requirements={"id": "[0-9]+"})
      */
     public function showAction()
     {

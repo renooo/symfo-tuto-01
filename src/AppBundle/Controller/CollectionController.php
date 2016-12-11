@@ -8,6 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CollectionController extends Controller
 {
     /**
+     * @Route(path="/collections")
+     */
+    public function indexAction()
+    {
+        return $this->render('collection/index.html.twig');
+    }
+    
+    /**
      * @Route(path="/collection")
      * @Route(path="/collection/{user_id}")
      */

@@ -46,7 +46,7 @@ class ArtistController extends Controller
     }
 
     /**
-     * @Route(path="/artist/{id}")
+     * @Route(path="/artist/{id}", requirements={"id": "[0-9]+"})
      */
     public function showAction()
     {
